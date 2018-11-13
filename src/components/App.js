@@ -7,15 +7,15 @@
  */
 
 import React, { Component } from 'react';
-
 import { Provider } from "react-redux";
-import { createStore } from 'redux'
-import reducers from '../reducers'
+import configureStore from '../components/Store';
 
 import firebase from 'firebase'
 import firebaseObject from '../../firebaseObject'
 
 import LoginForm from './LoginForm';
+
+const store = configureStore()
 
 export default class App extends Component {
 
@@ -25,7 +25,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Provider store={createStore(reducers)}>
+      <Provider store={store}>
         <LoginForm />
       </Provider>
     );
