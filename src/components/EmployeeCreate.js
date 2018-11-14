@@ -2,9 +2,16 @@ import React, { Component } from 'react'
 import { Card, CardSection, Button, Input } from './common'
 import { Picker, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { employeeUpdate } from '../actions'
+import { employeeUpdate, employeeCreate } from '../actions'
 
 class EmployeeCreate extends Component {
+
+  onButtonPress = () => {
+    const { name, phone, shift } = this.props
+
+    this.props.employeeCreate({ name, phone, shift: shift || 'monday' })
+  }
+
   render() {
     return (
       <Card>
@@ -27,7 +34,7 @@ class EmployeeCreate extends Component {
           <Picker
             selectedValue={this.props.shift}
             onValueChange={value => this.props.employeeUpdate({ prop: 'shift', value })}>
-            <Picker.Item label="Monday" value="monfay" />
+            <Picker.Item label="Monday" value="monday" />
             <Picker.Item label="Tuesday" value="tuesday" />
             <Picker.Item label="Wednesday" value="wednesday" />
             <Picker.Item label="Thursday" value="thursday" />
@@ -37,7 +44,7 @@ class EmployeeCreate extends Component {
           </Picker>
         </CardSection>
         <CardSection>
-          <Button>Create</Button>
+          <Button onPress={this.onButtonPress}>Create</Button>
         </CardSection>
       </Card>
     )
@@ -63,4 +70,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeCreate)
+export default connect(mapStateToProps, { employeeUpdate, employeeCreate })(EmployeeCreate)
