@@ -13,7 +13,8 @@ import configureStore from '../components/Store';
 import firebase from 'firebase'
 import firebaseObject from '../../firebaseObject'
 
-import LoginForm from './LoginForm';
+//import LoginForm from './LoginForm';
+import Router from '../../Router'
 
 const store = configureStore()
 
@@ -26,7 +27,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <LoginForm />
+        <Router />
       </Provider>
     );
   }
