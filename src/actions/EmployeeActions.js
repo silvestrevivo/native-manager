@@ -60,3 +60,18 @@ export const employeeSave = ({ name, phone, shift, uid }) => {
       })
   }
 }
+
+export const employeeDelete = ({ uid }) => {
+  // Get current user
+  const { currentUser } = firebase.auth();
+  // Delete Data
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+      .remove()
+      .then(() => {
+        Actions.employeeList({ type: 'reset' })
+        // with type: 'reset', we are going 'back'
+      })
+  }
+
+}
