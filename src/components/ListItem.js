@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 class ListItem extends Component {
 
   onRowPress = () => {
-    Actions.employeeCreate({ employee: this.props.employee })
+    Actions.employeeEdit({ employee: this.props.employee.item })
     // we are giving an aditional props to this layout
     // on this way we can use a conditional on EmployeeCreate component
     // to decide if we want to use the layout to create or to edit a user
