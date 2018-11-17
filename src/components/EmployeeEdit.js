@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Card, CardSection, Button } from './common'
 import { connect } from 'react-redux'
-import { employeeUpdate } from '../actions';
+import { employeeUpdate, employeeSave } from '../actions'
 import EmployeeForm from './EmployeeForm'
+import Communications from 'react-native-communications'
 import _ from 'lodash'
 
 class EmployeeEdit extends Component {
@@ -15,7 +16,13 @@ class EmployeeEdit extends Component {
 
   onButtonPress = () => {
     const { name, phone, shift } = this.props
-    console.log('edit', name, phone, shift)
+    this.props.employeeSave({ name, phone, shift, uid: this.props.employee.uid })
+  }
+
+  onTextPress = () => {
+    const { phone, shift } = this.props
+
+    Communications.text(phone, `Your comming shift is on ${shift}`)
   }
 
   render() {
@@ -24,6 +31,9 @@ class EmployeeEdit extends Component {
         <EmployeeForm />
         <CardSection>
           <Button onPress={this.onButtonPress}>SaveChanges</Button>
+        </CardSection>
+        <CardSection>
+          <Button onPress={this.onTextPress}>Text Schedule</Button>
         </CardSection>
       </Card>
     )
@@ -39,4 +49,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeEdit)
+export default connect(mapStateToProps, { employeeUpdate, employeeSave })(EmployeeEdit)

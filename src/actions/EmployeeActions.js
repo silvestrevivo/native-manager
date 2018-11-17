@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FECTH_SUCCESS } from './types'
+import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FECTH_SUCCESS, EMPLOYEE_SAVE_SUCCESS } from './types'
 import { Actions } from 'react-native-router-flux';
 
 export const employeeUpdate = ({ prop, value }) => {
@@ -39,6 +39,24 @@ export const employeesFetch = () => {
           type: EMPLOYEES_FECTH_SUCCESS,
           payload: snapshot.val()
         })
+      })
+  }
+}
+
+export const employeeSave = ({ name, phone, shift, uid }) => {
+  // Get current user
+  const { currentUser } = firebase.auth();
+  // Set data
+  return (dispatch) => {
+    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+      .set({ name, phone, shift })
+      .then(() => {
+        dispatch({
+          type: EMPLOYEE_SAVE_SUCCESS
+          // clearing data to have form clean if we want add after eddit
+        })
+        Actions.employeeList({ type: 'reset' })
+        // with type: 'reset', we are going 'back'
       })
   }
 }
