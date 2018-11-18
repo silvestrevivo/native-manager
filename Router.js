@@ -4,8 +4,10 @@ import LoginForm from './src/components/LoginForm'
 import EmployeeList from './src/components/EmployeeList'
 import EmployeeCreate from './src/components/EmployeeCreate'
 import EmployeeEdit from './src/components/EmployeeEdit'
+import { connect } from 'react-redux'
+import { employeeClean } from './src/actions'
 
-const RouterComponent = () => {
+const RouterComponent = (props) => {
   return (
     <Router>
       <Scene key="root" hideNavBar>
@@ -19,7 +21,10 @@ const RouterComponent = () => {
             title="Employees"
             initial
             rightTitle="Add"
-            onRight={() => Actions.employeeCreate()} />
+            onRight={() => {
+              Actions.employeeCreate()
+              props.employeeClean()
+            }} />
           <Scene
             key="employeeCreate"
             component={EmployeeCreate}
@@ -34,4 +39,4 @@ const RouterComponent = () => {
   )
 }
 
-export default RouterComponent
+export default connect(null, { employeeClean })(RouterComponent)

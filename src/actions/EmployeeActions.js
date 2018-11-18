@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FECTH_SUCCESS, EMPLOYEE_SAVE_SUCCESS } from './types'
+import { EMPLOYEE_UPDATE, EMPLOYEE_CREATE, EMPLOYEES_FECTH_SUCCESS, EMPLOYEE_SAVE_SUCCESS, EMPLOYEE_CLEAN } from './types'
 import { Actions } from 'react-native-router-flux';
 
 export const employeeUpdate = ({ prop, value }) => {
@@ -73,5 +73,12 @@ export const employeeDelete = ({ uid }) => {
         // with type: 'reset', we are going 'back'
       })
   }
+}
 
+export const employeeClean = () => {
+  return (dispatch) => {
+    dispatch({
+      type: EMPLOYEE_CLEAN
+    })
+  }
 }
