@@ -21,7 +21,6 @@ class EmployeeList extends Component {
 
   onPressButton = () => {
     firebase.auth().signOut();
-    Actions.auth({ type: 'reset' })
   }
 
   render() {

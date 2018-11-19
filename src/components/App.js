@@ -19,14 +19,26 @@ const store = configureStore()
 
 export default class App extends Component {
 
+  state = {
+    loggedIn: null
+  }
+
   componentDidMount() {
     firebase.initializeApp(firebaseObject);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ loggedIn: true })
+      } else {
+        this.setState({ loggedIn: false })
+      }
+    })
   }
 
   render() {
     return (
       <Provider store={store}>
-        <RouterComponent />
+        <RouterComponent log={this.state.loggedIn} />
       </Provider>
     );
   }
